@@ -21,13 +21,28 @@ void Enemy02::Release()
 
 }
 
+static int Counter = 0;
 
 void Enemy02::Update()
 {
 	float EnemySpeed = 1.0f;
+	
 
-	Position.X -= EnemySpeed;
+	Counter++;
+	
+		Position.X -= EnemySpeed;
 
+	if (Counter >= 10)
+	{
+		Position.Y -= EnemySpeed;
+	}
+	if (Counter <= 10)
+	{
+		Position.Y += EnemySpeed;
+		Counter = 0;
+	}
+
+	//X = -80.0になると消える
 	if (Position.X <= -80.0f)
 	{
 		IsActive = false;
@@ -38,7 +53,7 @@ void Enemy02::Draw()
 {
 	//敵画像のキーワードを使うように
 
-	Engine::DrawTexture(Position.X, Position.Y, "Enemy", Alpha, Angle, Scale.X, Scale.Y);
+	Engine::DrawTexture(Position.X, Position.Y, "Enemy02", Alpha, Angle, 0.9f, 0.8f );
 
 
 }

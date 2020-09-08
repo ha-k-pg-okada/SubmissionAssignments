@@ -1,7 +1,7 @@
 #include "Enemy01.h"
 #include "Src/Engine/Engine.h"
 
-int a = 0;
+
 
 void Enemy::Iintialize(Vec2 init_pos)
 {

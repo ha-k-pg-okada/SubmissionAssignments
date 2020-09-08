@@ -1,6 +1,6 @@
-#include "EnemyManager.h"
+#include "Enemy02Manager.h"
 
-void EnemyManager::Initialize()
+void EnemyManager02::Initialize()
 {
 	for (int i = 0; i < 100; i++)
 	{
@@ -9,7 +9,7 @@ void EnemyManager::Initialize()
 }
 
 
-void EnemyManager::Update()
+void EnemyManager02::Update()
 {
 	for (int i = 0; i < 100; i++)
 	{
@@ -20,13 +20,13 @@ void EnemyManager::Update()
 
 		Enemies[i].Update();
 
-		
+
 
 	}
 
 }
 
-void EnemyManager::Draw()
+void EnemyManager02::Draw()
 {
 	for (int i = 0; i < 100; i++)
 	{
@@ -40,7 +40,7 @@ void EnemyManager::Draw()
 
 }
 
-Enemy* EnemyManager::CreateEnemy(Vec2 init_pos)
+Enemy02* EnemyManager02::CreateEnemy(Vec2 init_pos)
 {
 	for (int i = 0; i < 100; i++)
 	{
@@ -57,7 +57,7 @@ Enemy* EnemyManager::CreateEnemy(Vec2 init_pos)
 	return nullptr;
 }
 
-Enemy* EnemyManager::GetEnemy(int index)
+Enemy02* EnemyManager02::GetEnemy(int index)
 {
 	//要素番号チェック
 	if (index < 0 || index >= 100)

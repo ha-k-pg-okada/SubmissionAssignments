@@ -8,6 +8,7 @@
 #include "../../../Score.h"
 //#include "../../../Enemy01.h"
 #include "../../../Enemy02.h"
+#include "../../../Enemy02Manager.h"
 
 void InitGameScene();
 void RunGameScene();
@@ -28,6 +29,7 @@ BulletManager g_BulletManager;
 Score g_Score;
 Enemy g_Enemy;
 Enemy02 g_Enemy02;
+EnemyManager02 g_EnemyManager02;
 
 //背景01
 static float background01 = 0.0f;
@@ -35,10 +37,18 @@ static float background01 = 0.0f;
 static float background02 = 1000.0f;
 
 //Enemyのカウンター
-static int a = 0;
 static int EnemyCounter = 0;
-float Enemy_X = 700.0f;
-float Enemy_Y = 0;
+
+//Enemy02のカウンター
+static int EnemyCounter02 = 0;
+
+//生成されるEnemyのX座標とY座標
+static float Enemy_X = 700.0f;
+static float Enemy_Y = 0;
+
+//生成されるEnemy02のX座標とY座標
+static float Enemy02_X = 700.0f;
+static float Enemy02_Y = 0;
 
 struct Rect
 {
@@ -89,8 +99,6 @@ bool OnCollisionRectAndRect(Rect* object01, Rect* object02)
 		{
 			Vec2(object01->Right - object01->Left, object01->Bottom - object01->Top),
 			Vec2(object02->Right - object02->Left, object02->Bottom - object02->Top),
-			//Vec2(object03->Right - object02->Left, object03->Bottom - object03->Top)
-
 		};
 
 		// 中心座標
@@ -98,8 +106,6 @@ bool OnCollisionRectAndRect(Rect* object01, Rect* object02)
 		{
 			Vec2(object01->Left + size[0].X / 2.0f, object01->Top + size[0].Y / 2.0f),
 			Vec2(object02->Left + size[1].X / 2.0f, object02->Top + size[1].Y / 2.0f),
-			//Vec2(object03->Left + size[2].X / 2.0f, object03->Top + size[2].Y / 2.0f)
-			
 		};
 
 		// RobotとEnemy二つの矩形の距離
@@ -218,23 +224,13 @@ bool OncollisionRectAndRect(Rect* object01, Rect* object02)
 void InitGameScene()
 {
 
-
-
 	g_EnemyManager.Initialize();
 	g_Player.Iintialize(Vec2(0.0f, 0.0f));
-	//g_Bullet.Iintialize(Vec2(0.0f, 0.0f));
 	g_BulletManager.Initialize();
-	g_Enemy02.Iintialize(Vec2(0.0f, 0.0f));
-	
- 
-	
-	
-	
+	//g_Enemy02.Iintialize(Vec2(0.0f, 0.0f));
+	g_EnemyManager02.Initialize();
+ 	
 	g_BulletManager.CreateBullet(Vec2(100.0f, 200.0f));
-
-	//g_Score.Iintialize(Vec2(130.0f, 0.0f));
-
-
 
 	Engine::LoadTexture("Robot", "Res/Robot_idle 1.PNG");
 	Engine::LoadTexture("Enemy", "Res/EA1.PNG");
@@ -273,12 +269,11 @@ void RunGameScene()
 	}
 
 	g_Player.Update();
-	//g_Bullet.Update();
 	g_BulletManager.Update();
 	g_Score.Update();
 	g_EnemyManager.Update();
-	g_Enemy02.Update();
-
+	//g_Enemy02.Update();
+	g_EnemyManager02.Update();
 
 	/*
 	Texture* texture[2] =
@@ -406,17 +401,23 @@ void RunGameScene()
 		}
 
 			EnemyCounter++;
+			EnemyCounter02++;
 
 		  if (EnemyCounter == 30)
 			{
 
 				Enemy_Y = rand() % 440;
 				g_EnemyManager.CreateEnemy(Vec2(Enemy_X, Enemy_Y + 10.0f));
-				
 				EnemyCounter = 0;
-
 			}
 
+		  if (EnemyCounter02 == 90)
+		  {
+			  Enemy02_Y = rand() % 440;
+			  g_EnemyManager02.CreateEnemy(Vec2(Enemy02_X, Enemy02_Y + 10.0f));
+			  EnemyCounter02 = 0;
+		  }
+		  
 			//g_EnemyManager.CreateEnemy(Vec2(200.0f, 200.0f));
 
 		 
@@ -466,8 +467,9 @@ void DrawGameScene()
 	g_EnemyManager.Draw();
 	g_Player.Draw();
 	g_BulletManager.Draw();
-	g_Enemy02.Draw();
-	
+	//g_Enemy02.Draw();
+	g_EnemyManager02.Draw();
+
 	if (background01 <= -1000.0f)
 	{
 		background01 = 1000.0f;

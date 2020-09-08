@@ -14,13 +14,12 @@ public:
 	Enemy* CreateEnemy(Vec2 init_pos);
 	Enemy* GetEnemy(int index);
 
-	//Enemy02* CreateEnemy(Vec2 init_pos);
-	//Enemy02* GetEnemy(int index);
+
 
 
 public:
 	 Enemy Enemies[100];
-	// Enemy02 Enemies[100];
+	
 	
 };
 
