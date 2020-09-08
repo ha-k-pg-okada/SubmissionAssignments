@@ -30,15 +30,24 @@ void Enemy02::Update()
 
 	Counter++;
 	
-		Position.X -= EnemySpeed;
+		
 
-	if (Counter >= 10)
+	if (Counter <= 40)
 	{
-		Position.Y -= EnemySpeed;
-	}
-	if (Counter <= 10)
-	{
+		//Position.X -= EnemySpeed;
 		Position.Y += EnemySpeed;
+		
+	}
+
+	if (Counter >= 40)
+	{
+		//Position.X -= EnemySpeed;
+		Position.Y -= EnemySpeed;
+		
+	}
+
+	if (Counter == 80)
+	{
 		Counter = 0;
 	}
 
