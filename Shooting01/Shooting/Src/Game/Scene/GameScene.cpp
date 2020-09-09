@@ -319,16 +319,17 @@ void RunGameScene()
 
 */
 
-		Texture* texture[3] =
+		Texture* texture[4] =
 		{
 			Engine::GetTexture("Robot"),
 			Engine::GetTexture("Enemy"),
 			Engine::GetTexture("Bullet"),
+			Engine::GetTexture("Enemy02"),
 		};
-		Vec2 tex_size[3];
+		Vec2 tex_size[4];
 
 		// テクスチャサイズの取得
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			if (texture[i] != nullptr)
 			{
@@ -338,7 +339,7 @@ void RunGameScene()
 
 		}
 
-		for (int i = 0; i < 100; i++) 
+		for (int i = 0; i < 200; i++) 
 		{
 			for (int j = 0; j < 100; j++)
 			{
@@ -347,7 +348,7 @@ void RunGameScene()
 				if (g_EnemyManager.Enemies[i].IsActive == true)
 				{
 
-					Rect rect[3] =
+					Rect rect[4] =
 					{
 						// Robotの矩形
 						{
@@ -358,7 +359,7 @@ void RunGameScene()
 						},
 
 
-						// 敵の矩形
+						// Enemyの矩形
 						 {
 
 						g_EnemyManager.Enemies[i].Position.X,
@@ -368,31 +369,46 @@ void RunGameScene()
 
 						 },
 
+						//Enemy02の矩形
+						{
+							g_EnemyManager02.Enemies[i].Position.X,
+							g_EnemyManager02.Enemies[i].Position.X + tex_size[2].X,
+							g_EnemyManager02.Enemies[i].Position.Y,
+							g_EnemyManager02.Enemies[i].Position.Y + tex_size[2].Y
+                        },
+
 						//弾丸の矩形
 						{
 						g_BulletManager.Bullets[j].Position.X,
-						g_BulletManager.Bullets[j].Position.X + tex_size[2].X,
+						g_BulletManager.Bullets[j].Position.X + tex_size[3].X,
 						g_BulletManager.Bullets[j].Position.Y,
-						g_BulletManager.Bullets[j].Position.Y + tex_size[2].Y
+						g_BulletManager.Bullets[j].Position.Y + tex_size[3].Y
 
 						},
 
-
-
+						
 					};
 
-					
+					//EnemyとRobotの当たり判定
 					if (OnCollisionRectAndRect(&rect[0], &rect[1]))
 					{
 						g_EnemyManager.Enemies[i].IsActive = false;
 						g_Player.Player_Hp--;
 					}
-					if (OnCollisionRectAndRect(&rect[1], &rect[2]))
+
+					//BulletとEnemyの当たり判定
+					if (OnCollisionRectAndRect(&rect[1], &rect[3]))
 					{
 						g_BulletManager.Bullets[j].IsActive = false;
 						g_EnemyManager.Enemies[i].IsActive = false;
 					}
 
+					//BulletとEnemy02の当たり判定
+					if (OnCollisionRectAndRect(&rect[2], &rect[3]))
+					{
+						g_BulletManager.Bullets[j].IsActive = false;
+						g_EnemyManager02.Enemies[i].IsActive = false;
+					}
 		
 				}
 

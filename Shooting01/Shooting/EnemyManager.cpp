@@ -2,7 +2,7 @@
 
 void EnemyManager::Initialize()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		Enemies[i].Iintialize(Vec2(0.0f, 0.0f));
 	}
@@ -11,7 +11,7 @@ void EnemyManager::Initialize()
 
 void EnemyManager::Update()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		if (Enemies[i].IsActive == false)
 		{
@@ -28,7 +28,7 @@ void EnemyManager::Update()
 
 void EnemyManager::Draw()
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		if (Enemies[i].IsActive == false)
 		{
@@ -42,7 +42,7 @@ void EnemyManager::Draw()
 
 Enemy* EnemyManager::CreateEnemy(Vec2 init_pos)
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		if (Enemies[i].IsActive == false)
 		{
@@ -60,7 +60,7 @@ Enemy* EnemyManager::CreateEnemy(Vec2 init_pos)
 Enemy* EnemyManager::GetEnemy(int index)
 {
 	//要素番号チェック
-	if (index < 0 || index >= 100)
+	if (index < 0 || index >= 200)
 	{
 		return nullptr;
 	}

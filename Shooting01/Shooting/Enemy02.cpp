@@ -27,26 +27,26 @@ void Enemy02::Update()
 {
 	float EnemySpeed = 1.0f;
 	
-
+	//Position.X -= EnemySpeed;
 	Counter++;
 	
 		
 
-	if (Counter <= 40)
+	if (Counter <= 100)
 	{
-		//Position.X -= EnemySpeed;
+		Position.X -= 2.0f;
 		Position.Y += EnemySpeed;
-		
+	
 	}
 
-	if (Counter >= 40)
+	if (Counter >= 100)
 	{
-		//Position.X -= EnemySpeed;
+		Position.X -= 2.0f;
 		Position.Y -= EnemySpeed;
 		
 	}
 
-	if (Counter == 80)
+	if (Counter == 200)
 	{
 		Counter = 0;
 	}
