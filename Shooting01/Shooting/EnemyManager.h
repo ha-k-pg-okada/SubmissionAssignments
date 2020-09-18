@@ -18,7 +18,7 @@ public:
 
 
 public:
-	 Enemy Enemies[200];
+	 Enemy Enemies[100];
 	
 	
 };

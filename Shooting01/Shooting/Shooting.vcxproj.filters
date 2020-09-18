@@ -85,6 +85,9 @@
     <ClCompile Include="Enemy02Manager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Engine\Window.h">
@@ -157,6 +160,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Enemy02Manager.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,11 +14,11 @@ void InitTitleScene()
 {
 	Engine::Update();
 	Engine::DrawFont(200.0f, 200.0f, "タイトルシーン", Regular, White);
-	//if (Engine::IsKeyboardKeyHeld(DIK_RETURN))
-//	{
+	if (Engine::IsKeyboardKeyHeld(DIK_RETURN))
+	{
 		//g_CurrentSceneStep = SceneStep::Init;
 		g_CurrentSceneKind = SceneKind::GameScene;
-//	}
+	}
 }
 
 void RunTitleScene()

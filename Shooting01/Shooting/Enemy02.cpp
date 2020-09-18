@@ -51,8 +51,8 @@ void Enemy02::Update()
 		Counter = 0;
 	}
 
-	//X = -80.0Ç…Ç»ÇÈÇ∆è¡Ç¶ÇÈ
-	if (Position.X <= -80.0f)
+	//X = -50.0Ç…Ç»ÇÈÇ∆è¡Ç¶ÇÈ
+	if (Position.X <= -50.0f)
 	{
 		IsActive = false;
 	}

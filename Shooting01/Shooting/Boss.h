@@ -1,8 +1,8 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef BOSS_H
+#define BOSS_H
 
 #include "Src/Common/Vec.h"
-class Player
+class Boss
 {
 public:
 
@@ -11,8 +11,6 @@ public:
 	void Iintialize(Vec2 init_pos); //初期化
 	void Release(); //後処理
 
-	Player* CreatePlayer(Vec2 init_pos);
-	Player* GetPlayer(int index);
 
 public:
 	Vec2 Position;
@@ -20,14 +18,13 @@ public:
 	float Angle;
 	unsigned char Alpha;
 
-	bool IsActive; //生存フラグ
+	int BossHp = 100;
 
-	int Player_Hp = 3;
+	bool IsActive; //生存フラグ
 
 };
 
 
 
 
-#endif // !PLAYER_H
-
+#endif // !ENEMY01

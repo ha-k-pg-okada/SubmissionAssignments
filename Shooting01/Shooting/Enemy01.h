@@ -18,6 +18,8 @@ public:
 	float Angle;
 	unsigned char Alpha;
 
+	
+
 	bool IsActive; //¶‘¶ƒtƒ‰ƒO
 
 };
