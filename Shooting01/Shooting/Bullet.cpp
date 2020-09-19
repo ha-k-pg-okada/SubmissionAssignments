@@ -27,7 +27,7 @@ void Bullet::Update()
 
 	Position.X += Bulletspeed;
 
-	if (Position.X >= 1000.0f)
+	if (Position.X >= 650.0f)
 	{
 		IsActive = false;
 	}

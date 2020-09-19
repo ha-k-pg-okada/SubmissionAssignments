@@ -254,7 +254,7 @@ void InitGameScene()
     g_BulletManager.Initialize();
     //g_Enemy02.Iintialize(Vec2(0.0f, 0.0f));
     g_EnemyManager02.Initialize();
-    g_Boss.Iintialize(Vec2(1000.0f, 150.0f));
+    g_Boss.Iintialize(Vec2(1000.0f, 100.0f));
 
     g_BulletManager.CreateBullet(Vec2(100.0f, 200.0f));
 
@@ -513,6 +513,22 @@ void DrawGameScene()
 		}
 
 
+       
+        if (g_Player.Player_Hp == 0)
+        {
+            g_CurrentSceneKind = SceneKind::TitleScene;
+            g_CurrentSceneStep = SceneStep::Init;
+
+        }
+        else if (g_Boss.BossHp == 0)
+        {
+            g_CurrentSceneKind = SceneKind::TitleScene;
+            g_CurrentSceneStep = SceneStep::Init;
+
+        }
+        
+
+
 	//îwåièàóù
 	Engine::DrawTexture(background01--, 350.0f, "building");
 	Engine::DrawTexture(background02--, 350.0f, "building");
@@ -522,8 +538,11 @@ void DrawGameScene()
 	g_Player.Draw();
 	g_BulletManager.Draw();
 	//g_Enemy02.Draw();
-	g_EnemyManager02.Draw();
-	g_Boss.Draw();
+    g_EnemyManager02.Draw();
+    g_Boss.Draw();
+    
+
+	
 
 	if (background01 <= -1000.0f)
 	{
