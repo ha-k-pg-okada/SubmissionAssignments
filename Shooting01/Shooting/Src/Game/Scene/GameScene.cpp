@@ -9,7 +9,7 @@
 #include "../../../Enemy02.h"
 #include "../../../Enemy02Manager.h"
 #include "../../../Boss.h"
-
+#include "../../../BulletManager02.h"
 //bool OnCollisionCircleAndCircle(Vec2 pos_a, float radius_a, Vec2 pos_b, float radius_b)
 //{
 //	Vec2 length = Vec2(pos_a.X - pos_b.X, pos_a.Y - pos_b.Y);
@@ -55,6 +55,8 @@ Enemy g_Enemy;
 Enemy02 g_Enemy02;
 EnemyManager02 g_EnemyManager02;
 Boss g_Boss;
+Bullet02 g_Bullet02;
+BulletManager02 g_BulletManager02;
 
 //背景01
 static float background01 = 0.0f;
@@ -74,6 +76,9 @@ static float Enemy_Y = 0;
 //生成されるEnemy02のX座標とY座標
 static float Enemy02_X = 700.0f;
 static float Enemy02_Y = 0;
+
+//Bossの弾の生成カウンター
+static float BossBulletCounter = 0;
 
 struct Rect
 {
@@ -255,11 +260,13 @@ void InitGameScene()
     //g_Enemy02.Iintialize(Vec2(0.0f, 0.0f));
     g_EnemyManager02.Initialize();
     g_Boss.Iintialize(Vec2(1000.0f, 100.0f));
-
-    g_BulletManager.CreateBullet(Vec2(100.0f, 200.0f));
+    //g_BulletManager.CreateBullet(Vec2(100.0f, 200.0f));
+    //g_Bullet02.Iintialize(Vec2(100.0f, 200.0f));
+    g_BulletManager02.Initialize();
 
     Engine::LoadTexture("Robot", "Res/Robot_idle 1.PNG");
     Engine::LoadTexture("Bullet", "Res/Bullet1.PNG");
+    Engine::LoadTexture("Bullet02", "Res/Bullet2.png");
     Engine::LoadTexture("Heart02", "Res/Heart02.png");
 
     Engine::LoadTexture("Enemy", "Res/EA1.PNG");
@@ -289,13 +296,17 @@ void InitGameScene()
 
 void RunGameScene()
 {
+   
 
     //弾丸発射キー
     if (Engine::IsKeyboardKeyPushed(DIK_5))
     {
         g_BulletManager.CreateBullet(Vec2(g_Player.Position.X + 30.0f, g_Player.Position.Y + 20.0f));
-
     }
+
+
+   
+
 
     g_Player.Update();
     g_BulletManager.Update();
@@ -304,20 +315,23 @@ void RunGameScene()
     //g_Enemy02.Update();
     g_EnemyManager02.Update();
     g_Boss.Update();
+    //g_Bullet02.Update();
+    g_BulletManager02.Update();
 
-    Texture* texture[5] =
+    Texture* texture[6] =
     {
      Engine::GetTexture("Robot"),
      Engine::GetTexture("Enemy"),
      Engine::GetTexture("Enemy02"),
      Engine::GetTexture("Bullet"),
      Engine::GetTexture("Boss"),
+     Engine::GetTexture("Bullet02")
     };
 
-    Vec2 tex_size[5];
+    Vec2 tex_size[6];
 
     // テクスチャサイズの取得
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
         if (texture[i] != nullptr)
         {
@@ -366,8 +380,21 @@ void RunGameScene()
         }
     }
 
-    
-    for (int i = 0; i < 100; i++) {
+   
+  
+       
+    for (int i = 0; i < 100; i++) 
+    {
+        if (g_Boss.Position.X <= 500.0f)
+        {
+            BossBulletCounter++;
+        }
+
+        if (BossBulletCounter >= 30)
+        {
+            g_BulletManager02.CreateBullet(Vec2(g_Boss.Position.X, g_Boss.Position.Y + 90.0f));
+
+
 
         Rect Enemy02Rect = 
         {
@@ -385,6 +412,10 @@ void RunGameScene()
                 g_EnemyManager02.Enemies[i].IsActive = false;
                 g_Player.Player_Hp--;
             }
+           
+            BossBulletCounter = 0;
+
+        }
         }
     }
 
@@ -414,7 +445,7 @@ void RunGameScene()
 
                 if (g_EnemyManager.Enemies[j].IsActive == true)
                 {
-                    //EnemyとBUlletの当たり判定
+                    //EnemyとBulletの当たり判定
                     if (OnCollisionRectAndRect(&BulletRect, &EnemyRect))
                     {
                         g_EnemyManager.Enemies[j].IsActive = false;
@@ -422,6 +453,30 @@ void RunGameScene()
                     }
                 }
             }
+
+            for (int a = 0; a < 100; a++)
+            {
+                Rect Bullet02Rect =
+                {
+                    g_BulletManager02.Bullets[a].Position.X,
+                    g_BulletManager02.Bullets[a].Position.X + tex_size[1].X,
+                    g_BulletManager02.Bullets[a].Position.Y,
+                    g_BulletManager02.Bullets[a].Position.Y + tex_size[1].Y
+                };
+
+                if (g_BulletManager02.Bullets[a].IsActive == true)
+                {
+                    if (OnCollisionRectAndRect(&RobotRect, &Bullet02Rect))
+                    {
+                        g_Player.Player_Hp--;
+                        g_BulletManager02.Bullets[a].IsActive = false;
+                    }
+                }
+            }
+
+
+
+
 
             for (int j = 0; j < 100; j++) 
             {
@@ -444,6 +499,8 @@ void RunGameScene()
                 }
             }
 
+            
+
             //BossとRobotの当たり判定
             if (g_Boss.IsActive == true) 
             {
@@ -455,6 +512,8 @@ void RunGameScene()
             }
         }
     }
+
+
             EnemyCounter++;
 			EnemyCounter02++;
 
@@ -540,8 +599,8 @@ void DrawGameScene()
 	//g_Enemy02.Draw();
     g_EnemyManager02.Draw();
     g_Boss.Draw();
-    
-
+   // g_Bullet02.Draw();
+    g_BulletManager02.Draw();
 	
 
 	if (background01 <= -1000.0f)

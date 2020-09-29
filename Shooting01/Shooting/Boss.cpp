@@ -15,7 +15,7 @@ void Boss::Iintialize(Vec2 init_pos)
 	Alpha = 255;
 	unsigned char Alpha;
 
-	BossHp = 10;
+	BossHp = 100;
 
 	IsActive = true;
 
@@ -42,7 +42,7 @@ void Boss::Update()
 	}
 
 	
-	if (BossCounter >= 10)
+	if (BossCounter >= 2)
 	{
 		
 		Position.X -= BossSpeed;

@@ -128,7 +128,9 @@
   <ItemGroup>
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Bullet02.cpp" />
     <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="BulletManager02.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="Enemy01.cpp" />
     <ClCompile Include="Enemy02.cpp" />
@@ -153,7 +155,9 @@
   <ItemGroup>
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Bullet02.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="BulletManager02.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="Enemy01.h" />
     <ClInclude Include="Enemy02.h" />
