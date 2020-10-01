@@ -10,7 +10,7 @@ void Bullet02::Iintialize(Vec2 init_pos)
 	Angle = 0.0f;
 	Alpha = 255;
 	//unsigned char Alpha;
-
+	IsActive = false;
 
 }
 
@@ -23,7 +23,7 @@ void Bullet02::Release()
 
 void Bullet02::Update()
 {
-	float Bulletspeed = 4.0f;
+	float Bulletspeed = 2.0f;
 
 	Position.X -= Bulletspeed;
 

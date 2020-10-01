@@ -9,7 +9,7 @@ void Player::Iintialize(Vec2 init_pos)
 	Angle = 0.0f;
 	Alpha = 255;
 	Player_Hp = 3;
-	unsigned char Alpha;
+	//unsigned char Alpha;
 
 	IsActive = false;
 
@@ -25,7 +25,7 @@ void Player::Release()
 
 void Player::Update()
 {
-
+	
 
 	//ã‰º‰E¶ˆÚ“®
 	float speed = 2.0f;

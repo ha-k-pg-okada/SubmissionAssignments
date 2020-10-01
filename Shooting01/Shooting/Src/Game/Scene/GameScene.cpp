@@ -304,6 +304,18 @@ void RunGameScene()
         g_BulletManager.CreateBullet(Vec2(g_Player.Position.X + 30.0f, g_Player.Position.Y + 20.0f));
     }
 
+    if (g_Boss.Position.X <= 500.0f)
+    {
+        BossBulletCounter++;
+    }
+
+    if (BossBulletCounter >= 50)
+    {
+        g_BulletManager02.CreateBullet(Vec2(g_Boss.Position.X, g_Boss.Position.Y + 90.0f));
+
+        BossBulletCounter = 0;
+
+    }
 
    
 
@@ -385,17 +397,7 @@ void RunGameScene()
        
     for (int i = 0; i < 100; i++) 
     {
-        if (g_Boss.Position.X <= 500.0f)
-        {
-            BossBulletCounter++;
-        }
-
-        if (BossBulletCounter >= 30)
-        {
-            g_BulletManager02.CreateBullet(Vec2(g_Boss.Position.X, g_Boss.Position.Y + 90.0f));
-
-
-
+        
         Rect Enemy02Rect = 
         {
            g_EnemyManager02.Enemies[i].Position.X,
@@ -413,11 +415,33 @@ void RunGameScene()
                 g_Player.Player_Hp--;
             }
            
-            BossBulletCounter = 0;
-
-        }
+        
         }
     }
+
+  for (int a = 0; a < 100; a++)
+    {
+        Rect Bullet02Rect =
+        {
+            g_BulletManager02.Bullets[a].Position.X,
+            g_BulletManager02.Bullets[a].Position.X + tex_size[1].X,
+            g_BulletManager02.Bullets[a].Position.Y,
+            g_BulletManager02.Bullets[a].Position.Y + tex_size[1].Y
+        };
+
+        //Bullet‚ÆRobot‚Ì“–‚½‚è”»’è
+        if (g_BulletManager02.Bullets[a].IsActive == true)
+        {
+            if (OnCollisionRectAndRect(&RobotRect, &Bullet02Rect))
+            {
+
+                g_BulletManager02.Bullets[a].IsActive = false;
+                g_Player.Player_Hp--;
+            }
+        }
+    }
+
+
 
     
     for (int i = 0; i < 100; i++) 
@@ -444,7 +468,7 @@ void RunGameScene()
                 };
 
                 if (g_EnemyManager.Enemies[j].IsActive == true)
-                {
+               {
                     //Enemy‚ÆBullet‚Ì“–‚½‚è”»’è
                     if (OnCollisionRectAndRect(&BulletRect, &EnemyRect))
                     {
@@ -454,25 +478,7 @@ void RunGameScene()
                 }
             }
 
-            for (int a = 0; a < 100; a++)
-            {
-                Rect Bullet02Rect =
-                {
-                    g_BulletManager02.Bullets[a].Position.X,
-                    g_BulletManager02.Bullets[a].Position.X + tex_size[1].X,
-                    g_BulletManager02.Bullets[a].Position.Y,
-                    g_BulletManager02.Bullets[a].Position.Y + tex_size[1].Y
-                };
-
-                if (g_BulletManager02.Bullets[a].IsActive == true)
-                {
-                    if (OnCollisionRectAndRect(&RobotRect, &Bullet02Rect))
-                    {
-                        g_Player.Player_Hp--;
-                        g_BulletManager02.Bullets[a].IsActive = false;
-                    }
-                }
-            }
+           
 
 
 
@@ -501,8 +507,10 @@ void RunGameScene()
 
             
 
+           
+        
             //Boss‚ÆRobot‚Ì“–‚½‚è”»’è
-            if (g_Boss.IsActive == true) 
+            if (g_Boss.IsActive == true)
             {
                 if (OnCollisionRectAndRect(&BulletRect, &BossRect))
                 {
@@ -510,7 +518,14 @@ void RunGameScene()
                     g_BulletManager.Bullets[i].IsActive = false;
                 }
             }
+           
+
+        
         }
+       
+
+  
+
     }
 
 
@@ -543,6 +558,7 @@ void FinishGameScene()
 	Engine::ReleaseTexture("Enemy");
 	Engine::ReleaseTexture("Bullet");
 	Engine::ReleaseTexture("Score00");
+    Engine::ReleaseTexture("Boss");
 }
 
 

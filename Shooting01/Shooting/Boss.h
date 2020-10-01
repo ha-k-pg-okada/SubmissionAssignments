@@ -18,7 +18,8 @@ public:
 	float Angle;
 	unsigned char Alpha;
 
-	int BossHp = 100;
+	int BossHp = 30;
+	
 
 	bool IsActive; //¶‘¶ƒtƒ‰ƒO
 

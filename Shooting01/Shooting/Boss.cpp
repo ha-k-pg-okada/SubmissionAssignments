@@ -5,6 +5,7 @@
 extern SceneKind g_CurrentSceneKind;
 extern SceneStep g_CurrentSceneStep;
 
+static float BossSpeed = 2.0f;
 
 void Boss::Iintialize(Vec2 init_pos)
 {
@@ -14,10 +15,11 @@ void Boss::Iintialize(Vec2 init_pos)
 	Angle = 0.0f;
 	Alpha = 255;
 	unsigned char Alpha;
-
-	BossHp = 100;
-
+	
+	BossHp = 30;
+	
 	IsActive = true;
+	BossSpeed = 2.0f;
 
 
 }
@@ -28,28 +30,32 @@ void Boss::Release()
 
 }
 
-static int MoveCounter = 0;
+
+
+
+static float Speed = 2.0f;
 static int BossCounter = 0;
-static float BossSpeed = 2.0f;
 
 void Boss::Update()
 {
 	
-	if (Position.X == 1000.0f)
-	{
 		BossCounter++;
 	
-	}
-
 	
-	if (BossCounter >= 2)
+		
+	
+	
+
+	//“oê‚ÌŽžŠÔ
+	if (BossCounter >= 1200)
 	{
 		
 		Position.X -= BossSpeed;
 
 		if (Position.X <= 500.0f)
 		{
-			Position.X == 500;
+		  
+			BossSpeed = 0.0f;
 		}
 		
 	}
@@ -57,39 +63,36 @@ void Boss::Update()
 	
 
 	
-
-	if (Position.X == 500)
+//ã‰º‚Ìˆ—
+	if (Position.X <= 500.0f)
 	{
+		//BossSpeed = 2.0f;
+		Position.Y -= Speed;
 		
-		if (MoveCounter >= 150)
-		{
-			Position.Y -= 2.0f;
-		}
-		else if (MoveCounter <= 300)
-		{
-			Position.Y += 2.0f;
-		}
-		if (MoveCounter >= 300)
-		{
-			MoveCounter = 0;
-		}
-
-		BossCounter = 0;
+			if (Position.Y <= 0.0f)
+			{
+				Speed *= -1.0f;
+			}
+			if (Position.Y >= 350.0f)
+			{
+				Speed *= -1.0f;
+			}
+			BossCounter = 0;
 	
 	}
 
-	if (BossHp <= 999)
-	{
-		MoveCounter++;
-	}
 
 
 	if (BossHp <= 0)
 	{
 		IsActive = false;
+		
 	}
 
-
+	if (BossHp == 10)
+	{
+		IsActive = true;
+	}
 
 }
 void Boss::Draw()
@@ -97,6 +100,8 @@ void Boss::Draw()
 	if (IsActive == true)
 	{
 		Engine::DrawTexture(Position.X, Position.Y, "Boss", Alpha, Angle, Scale.X, Scale.Y);
+
 	}
+	
 
 }
